@@ -1,5 +1,11 @@
 # README
 
+## Dataset
+
+The example uses the [World Cities Dataset](https://simplemaps.com/data/world-cities) from [SimpleMaps](https://simplemaps.com) which "contains demographic details of about 15,000 cities around the world. The location of the cities, the countries to which the City belongs to, its populations etc."
+
+[[Attribution 4.0 International (CC BY 4.0.)[https://creativecommons.org/licenses/by/4.0/]
+
 ## Schema
 
 * `WorldCity`
@@ -23,12 +29,22 @@
   }
 ```
 
-## Dataset
+### Database Setup
 
-The example uses the [World Cities Dataset](https://simplemaps.com/data/world-cities) from [SimpleMaps](https://simplemaps.com) which "contains demographic details of about 15,000 cities around the world. The location of the cities, the countries to which the City belongs to, its populations etc."
+It's recommended to use [`Postgres`] for your database so the schema can use `BigInt` and `Float` nicely.
 
-[[Attribution 4.0 International (CC BY 4.0.)[https://creativecommons.org/licenses/by/4.0/]
+Also, the seed script uses Prisma's [`createMany()`](https://www.prisma.io/docs/reference/api-reference/prisma-client-reference#createmany) to bulk load records in batches which is significantly faster that loading data row by row -- which is important because we have ~43,000 world cities in the dataset.
 
+Unfortunately, `createMany` is not supported by SQLite.
+
+The easiest way to get Postgres up ad running locally on OSX is [Postres.app](https://postgresapp.com).
+
+You can then set you database configuration settings to two different local databases, like:
+
+```
+DATABASE_URL=postgresql://postgres:postgres@localhost:5432/redwoodjs-weather-demo-test
+TEST_DATABASE_URL=postgresql://postgres:postgres@localhost:5432/redwoodjs-weather-demo-test
+```
 
 ---
 # README
