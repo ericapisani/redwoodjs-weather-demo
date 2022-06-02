@@ -22,9 +22,7 @@ export default async (request: Request, context: Context) => {
   const utcDate = new Date();
 
   const localDate = getLocalDate(utcDate, context.geo);
+  request.headers.set('x-user-local-datetime', localDate || '')
 
-  return context.json({
-    utcDate,
-    localDate,
-  });
+  return context.next();
 };
