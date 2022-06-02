@@ -24,6 +24,12 @@ model WorldCity {
   capital      String?
   population   Int?     @default(0)
 
+
   @@unique([simpleMapsId, city])
   @@unique([simpleMapsId, city, cityAscii, country])
+  @@index([city])
+  @@index([cityAscii])
+  @@index([country])
+  @@index([city, country])
+  @@index([cityAscii, country])
 }
