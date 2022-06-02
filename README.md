@@ -1,5 +1,38 @@
 # README
 
+## Schema
+
+* `WorldCity`
+
+```ts
+ type WorldCity {
+    id: String!
+    createdAt: DateTime!
+    updatedAt: DateTime!
+    simpleMapsId: BigInt!
+    city: String!
+    cityAscii: String!
+    lat: Float!
+    lng: Float!
+    country: String!
+    iso2: String!
+    iso3: String!
+    adminName: String
+    capital: String
+    population: Int
+  }
+```
+
+## Dataset
+
+The example uses the [World Cities Dataset](https://simplemaps.com/data/world-cities) from [SimpleMaps](https://simplemaps.com) which "contains demographic details of about 15,000 cities around the world. The location of the cities, the countries to which the City belongs to, its populations etc."
+
+[[Attribution 4.0 International (CC BY 4.0.)[https://creativecommons.org/licenses/by/4.0/]
+
+
+---
+# README
+
 Welcome to [RedwoodJS](https://redwoodjs.com)!
 
 > **Prerequisites**
