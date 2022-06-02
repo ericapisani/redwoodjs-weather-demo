@@ -1,8 +1,19 @@
 import { db } from 'src/lib/db'
 import type { QueryResolvers, MutationResolvers } from 'types/graphql'
 
+export const searchWorldCities: QueryResolvers['searchWorldCities'] = ({
+  search,
+}) => {
+  return db.worldCity.findMany({
+    where: { ...search },
+    orderBy: [{ city: 'asc' }, { country: 'asc' }],
+  })
+}
+
 export const worldCities: QueryResolvers['worldCities'] = () => {
-  return db.worldCity.findMany({ orderBy: { city: 'asc' } })
+  return db.worldCity.findMany({
+    orderBy: [{ city: 'asc' }, { country: 'asc' }],
+  })
 }
 
 export const worldCity: QueryResolvers['worldCity'] = ({ id }) => {

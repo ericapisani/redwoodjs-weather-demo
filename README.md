@@ -46,6 +46,55 @@ DATABASE_URL=postgresql://postgres:postgres@localhost:5432/redwoodjs-weather-dem
 TEST_DATABASE_URL=postgresql://postgres:postgres@localhost:5432/redwoodjs-weather-demo-test
 ```
 
+## GraphQL Queries
+
+### Get all world cities
+
+```ts
+query AllCities {
+  worldCities {
+    id
+    city
+    cityAscii
+    country
+    lat
+    lng
+  }
+}
+```
+
+
+### Search world cities
+
+```ts
+query CityByName {
+  searchWorldCities(search: { city: "Boston" }) {
+    city
+    country
+    lat
+    lng
+    adminName
+    population
+  }
+}
+```
+
+
+### City By Id
+
+```ts
+query CityById{
+  worldCity(id: "a4a48716-3aa7-4da2-b7c6-9c3d64b4f3e5") {
+    city
+    country
+    lat
+    lng
+    adminName
+    population
+  }
+}
+```
+
 ---
 # README
 

@@ -17,8 +17,9 @@ export const schema = gql`
   }
 
   type Query {
-    worldCities: [WorldCity!]! @requireAuth
-    worldCity(id: String!): WorldCity @requireAuth
+    searchWorldCities(search: SearchWorldCityInput): [WorldCity!]! @skipAuth
+    worldCities: [WorldCity!]! @skipAuth
+    worldCity(id: String!): WorldCity @skipAuth
   }
 
   input CreateWorldCityInput {
@@ -36,6 +37,20 @@ export const schema = gql`
   }
 
   input UpdateWorldCityInput {
+    simpleMapsId: BigInt
+    city: String
+    cityAscii: String
+    lat: Float
+    lng: Float
+    country: String
+    iso2: String
+    iso3: String
+    adminName: String
+    capital: String
+    population: Int
+  }
+
+  input SearchWorldCityInput {
     simpleMapsId: BigInt
     city: String
     cityAscii: String
