@@ -4,7 +4,7 @@
 
 The example uses the [World Cities Dataset](https://simplemaps.com/data/world-cities) from [SimpleMaps](https://simplemaps.com) which "contains demographic details of about 15,000 cities around the world. The location of the cities, the countries to which the City belongs to, its populations etc."
 
-[[Attribution 4.0 International (CC BY 4.0.)[https://creativecommons.org/licenses/by/4.0/]
+[Attribution 4.0 International (CC BY 4.0.)](https://creativecommons.org/licenses/by/4.0/)
 
 ## Schema
 

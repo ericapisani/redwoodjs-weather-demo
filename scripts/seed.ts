@@ -23,6 +23,18 @@ const inBatches = (items, batchSize) => {
 }
 export default async () => {
   try {
+    const count = await db.worldCity.count()
+
+    if (count > 0) {
+      throw new Error('World Cities already exist.')
+    }
+  } catch (error) {
+    console.warn('Did not overwrite existing data.')
+    console.error(error)
+    return
+  }
+
+  try {
     console.info(`Loading world cities ...`)
 
     const cities: Prisma.WorldCityCreateInput[] = JSON.parse(
