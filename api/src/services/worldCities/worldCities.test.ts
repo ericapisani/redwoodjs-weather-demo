@@ -21,47 +21,49 @@ describe('worldCities', () => {
   })
 
   scenario('returns a single worldCity', async (scenario: StandardScenario) => {
-    const result = await worldCity({ id: scenario.worldCity.sf.id })
+    const result = await worldCity({ id: scenario.worldCity.one.id })
 
-    expect(result).toEqual(scenario.worldCity.sf)
+    expect(result).toEqual(scenario.worldCity.one)
   })
 
   scenario('creates a worldCity', async () => {
     const result = await createWorldCity({
       input: {
-        simpleMapsId: 6859181,
+        updatedAt: '2022-06-03T16:47:01Z',
+        simpleMapsId: 9044091n,
         city: 'String',
         cityAscii: 'String',
-        lat: 3346334.673512834,
-        lng: 8835234.57459205,
+        lat: 2472306.844293075,
+        lng: 4791526.728299809,
         country: 'String',
         iso2: 'String',
         iso3: 'String',
       },
     })
 
-    expect(result.simpleMapsId).toEqual(6859181n)
+    expect(result.updatedAt).toEqual('2022-06-03T16:47:01Z')
+    expect(result.simpleMapsId).toEqual(9044091n)
     expect(result.city).toEqual('String')
     expect(result.cityAscii).toEqual('String')
-    expect(result.lat).toEqual(3346334.673512834)
-    expect(result.lng).toEqual(8835234.57459205)
+    expect(result.lat).toEqual(2472306.844293075)
+    expect(result.lng).toEqual(4791526.728299809)
     expect(result.country).toEqual('String')
     expect(result.iso2).toEqual('String')
     expect(result.iso3).toEqual('String')
   })
 
   scenario('updates a worldCity', async (scenario: StandardScenario) => {
-    const original = await worldCity({ id: scenario.worldCity.sf.id })
+    const original = await worldCity({ id: scenario.worldCity.one.id })
     const result = await updateWorldCity({
       id: original.id,
-      input: { population: 1000 },
+      input: { updatedAt: '2022-06-04T16:47:01Z' },
     })
 
-    expect(result.population).toEqual(1000)
+    expect(result.updatedAt).toEqual('2022-06-04T16:47:01Z')
   })
 
   scenario('deletes a worldCity', async (scenario: StandardScenario) => {
-    const original = await deleteWorldCity({ id: scenario.worldCity.boston.id })
+    const original = await deleteWorldCity({ id: scenario.worldCity.one.id })
     const result = await worldCity({ id: original.id })
 
     expect(result).toEqual(null)
