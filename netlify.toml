@@ -1,11 +1,8 @@
 [[edge_functions]]
-path = "/"
-function = "getLocalDate"
+path = "/.redwood/functions/graphql"
+function = "geolocate"
 
 [[edge_functions]]
-path = "/"
-function = "getLocation"
+path = "/.redwood/functions/weather"
+function = "geolocate"
 
-[[edge_functions]]
-path = "/"
-function = "getLocalWeather"

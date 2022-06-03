@@ -1,5 +1,9 @@
 # README
 
+
+Run with `netlify dev` locally instead of `yarn rw dev` to test Netlify Edge Functions.
+
+Note: If editing code while running `netlify dev`, the api server will try to restart but may get warning that port is in use. You will need to stop and restart `netlify dev` manually.
 ## Dataset
 
 The example uses the [World Cities Dataset](https://simplemaps.com/data/world-cities) from [SimpleMaps](https://simplemaps.com) which "contains demographic details of about 15,000 cities around the world. The location of the cities, the countries to which the City belongs to, its populations etc."
@@ -94,6 +98,28 @@ query CityById{
   }
 }
 ```
+
+## Running Edge Functions in GraphQL
+
+```
+[[edge_functions]]
+path = "/.redwood/functions/graphql"
+function = "geolocate"
+```
+
+
+## Testing Edge functions
+
+
+1. Place edge function in `netlify/edge-functions`
+2. In `netlify.toml` your path is to your serverless function and then declare the edge function to run for that path. Be sure to include the deploy path where functions live, like `/.redwood/functions/` or `/.netlify/functions/`
+
+```
+[[edge_functions]]
+path = "/.redwood/functions/geolocate"
+function = "geolocate"
+```
+
 
 ---
 # README

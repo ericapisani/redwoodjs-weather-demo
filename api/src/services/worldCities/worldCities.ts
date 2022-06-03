@@ -1,12 +1,27 @@
 import { db } from 'src/lib/db'
+import { logger } from 'src/lib/logger'
+import { getUserWorldCitySearchCriteria } from 'src/lib/geoUtils'
+
+import type { APIGatewayEvent } from 'aws-lambda'
+
 import type { QueryResolvers, MutationResolvers } from 'types/graphql'
 
 export const searchWorldCities: QueryResolvers['searchWorldCities'] = ({
   search,
 }) => {
+  const worldCitySearch = getUserWorldCitySearchCriteria(
+    context.event as APIGatewayEvent
+  )
+
+  logger.debug({ custom: worldCitySearch }, 'Searching for world cities.')
+
   return db.worldCity.findMany({
-    where: { ...search },
+    where: {
+      ...worldCitySearch,
+      ...search,
+    },
     orderBy: [{ city: 'asc' }, { country: 'asc' }],
+    take: 10,
   })
 }
 
