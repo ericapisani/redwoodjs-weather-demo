@@ -1,0 +1,11 @@
+[[edge_functions]]
+path = "/"
+function = "getLocalDate"
+
+[[edge_functions]]
+path = "/"
+function = "getLocation"
+
+[[edge_functions]]
+path = "/"
+function = "getLocalWeather"
