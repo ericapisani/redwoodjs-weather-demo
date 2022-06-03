@@ -1,5 +1,103 @@
 # README
 
+## Dataset
+
+The example uses the [World Cities Dataset](https://simplemaps.com/data/world-cities) from [SimpleMaps](https://simplemaps.com) which "contains demographic details of about 15,000 cities around the world. The location of the cities, the countries to which the City belongs to, its populations etc."
+
+[Attribution 4.0 International (CC BY 4.0.)](https://creativecommons.org/licenses/by/4.0/)
+
+## Schema
+
+* `WorldCity`
+
+```ts
+ type WorldCity {
+    id: String!
+    createdAt: DateTime!
+    updatedAt: DateTime!
+    simpleMapsId: BigInt!
+    city: String!
+    cityAscii: String!
+    lat: Float!
+    lng: Float!
+    country: String!
+    iso2: String!
+    iso3: String!
+    adminName: String
+    capital: String
+    population: Int
+  }
+```
+
+### Database Setup
+
+It's recommended to use [`Postgres`] for your database so the schema can use `BigInt` and `Float` nicely.
+
+Also, the seed script uses Prisma's [`createMany()`](https://www.prisma.io/docs/reference/api-reference/prisma-client-reference#createmany) to bulk load records in batches which is significantly faster that loading data row by row -- which is important because we have ~43,000 world cities in the dataset.
+
+Unfortunately, `createMany` is not supported by SQLite.
+
+The easiest way to get Postgres up ad running locally on OSX is [Postres.app](https://postgresapp.com).
+
+You can then set you database configuration settings to two different local databases, like:
+
+```
+DATABASE_URL=postgresql://postgres:postgres@localhost:5432/redwoodjs-weather-demo-test
+TEST_DATABASE_URL=postgresql://postgres:postgres@localhost:5432/redwoodjs-weather-demo-test
+```
+
+## GraphQL Queries
+
+### Get all world cities
+
+```ts
+query AllCities {
+  worldCities {
+    id
+    city
+    cityAscii
+    country
+    lat
+    lng
+  }
+}
+```
+
+
+### Search world cities
+
+```ts
+query CityByName {
+  searchWorldCities(search: { city: "Boston" }) {
+    city
+    country
+    lat
+    lng
+    adminName
+    population
+  }
+}
+```
+
+
+### City By Id
+
+```ts
+query CityById{
+  worldCity(id: "a4a48716-3aa7-4da2-b7c6-9c3d64b4f3e5") {
+    city
+    country
+    lat
+    lng
+    adminName
+    population
+  }
+}
+```
+
+---
+# README
+
 Welcome to [RedwoodJS](https://redwoodjs.com)!
 
 > **Prerequisites**

@@ -1,38 +1,55 @@
+import fs from 'fs'
+
 import type { Prisma } from '@prisma/client'
 import { db } from 'api/src/lib/db'
 
+/**
+ * Batch the `items` array into multiple, smaller array chunks for a batch size
+ *
+ * @param {Array} items
+ * @param {Number} batchSize
+ *
+ * @returns {Array[]}
+ */
+const inBatches = (items, batchSize) => {
+  const chunks = []
+  items = [].concat(...items)
+
+  while (items.length) {
+    chunks.push(items.splice(0, batchSize))
+  }
+
+  return chunks
+}
 export default async () => {
   try {
-    //
-    // Manually seed via `yarn rw prisma db seed`
-    // Seeds automatically with `yarn rw prisma migrate dev` and `yarn rw prisma migrate reset`
-    //
-    // Update "const data = []" to match your data model and seeding needs
-    //
-    const data: Prisma.UserExampleCreateArgs['data'][] = [
-      // To try this example data with the UserExample model in schema.prisma,
-      // uncomment the lines below and run 'yarn rw prisma migrate dev'
-      //
-      // { name: 'alice', email: 'alice@example.com' },
-      // { name: 'mark', email: 'mark@example.com' },
-      // { name: 'jackie', email: 'jackie@example.com' },
-      // { name: 'bob', email: 'bob@example.com' },
-    ]
-    console.log(
-      "\nUsing the default './scripts/seed.{js,ts}' template\nEdit the file to add seed data\n"
+    const count = await db.worldCity.count()
+
+    if (count > 0) {
+      throw new Error('World Cities already exist.')
+    }
+  } catch (error) {
+    console.warn('Did not overwrite existing data.')
+    console.error(error)
+    return
+  }
+
+  try {
+    console.info(`Loading world cities ...`)
+
+    const cities: Prisma.WorldCityCreateInput[] = JSON.parse(
+      fs.readFileSync('./scripts/data/world_cities.json', 'utf8')
     )
 
-    // Note: if using PostgreSQL, using `createMany` to insert multiple records is much faster
-    // @see: https://www.prisma.io/docs/reference/api-reference/prisma-client-reference#createmany
-    Promise.all(
-      //
-      // Change to match your data model and seeding needs
-      //
-      data.map(async (data: Prisma.UserExampleCreateArgs['data']) => {
-        const record = await db.userExample.create({ data })
-        console.log(record)
-      })
-    )
+    console.info(`Loaded ${cities.length} world cities.`)
+
+    for (const batchOfCities of inBatches(cities, 10_000)) {
+      console.info(`Saving ${batchOfCities.length} world cities ...`)
+      console.info(`First city in batch: '${batchOfCities[0].city}'`)
+      await db.worldCity.createMany({ data: batchOfCities })
+    }
+
+    console.info(`Done!`)
   } catch (error) {
     console.warn('Please define your seed data.')
     console.error(error)
