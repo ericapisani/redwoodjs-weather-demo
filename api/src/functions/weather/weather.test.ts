@@ -13,7 +13,7 @@ describe('weather function', () => {
       },
     })
 
-    const response = await handler(httpEvent, null)
+    const response = await handler(httpEvent)
     const { data } = JSON.parse(response.body)
 
     expect(response.statusCode).toBe(200)

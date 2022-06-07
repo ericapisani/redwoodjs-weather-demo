@@ -52,6 +52,10 @@ TEST_DATABASE_URL=postgresql://postgres:postgres@localhost:5432/redwoodjs-weathe
 
 ## GraphQL Queries
 
+While RedwoodJS ships with a developer GraphQL Playground, when running the app under `netlfiy cli`, the playground doesn't launch properly.
+
+Instead, try using a GraphQL IDE like [Paw](https://paw.cloud) or [Insomnia](https://insomnia.rest).
+
 ### Get all world cities
 
 ```ts

@@ -45,14 +45,14 @@ export const openWeather = async ({ lat, lon }) => {
     throw new Error('An api key for the Open Weather Maps API is required.')
   }
 
-  const request = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.OPEN_WEATHER_API_KEY}`
+  const url = `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.OPEN_WEATHER_API_KEY}` // ?
 
   logger.debug(
-    { custom: { lat, lon, request } },
+    { custom: { lat, lon, url } },
     'Fetching weather for geocoordinates ...'
   )
 
-  const res = await fetch(request)
+  const res = await fetch(url)
 
   const json = await res.json()
 
@@ -66,7 +66,7 @@ export const openWeather = async ({ lat, lon }) => {
     const enrichedWeather = { ...json, ...main }
 
     logger.debug(
-      { custom: { lat, lon, request, enrichedWeather } },
+      { custom: { lat, lon, url, json, enrichedWeather } },
       'Fetched weather.'
     )
 

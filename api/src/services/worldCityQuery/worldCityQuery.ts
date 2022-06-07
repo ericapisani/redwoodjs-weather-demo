@@ -1,6 +1,9 @@
 import { db } from 'src/lib/db'
 import { logger } from 'src/lib/logger'
-import { getUserWorldCitySearchCriteria } from 'src/lib/geoUtils'
+import {
+  getUserWorldCitySearchCriteria,
+  geocoordinates,
+} from 'src/lib/geoUtils'
 
 import type { QueryResolvers } from 'types/graphql'
 
@@ -40,6 +43,29 @@ export const searchWorldCities: QueryResolvers['searchWorldCities'] = ({
       ...criteria,
     },
     orderBy: [{ city: 'asc' }, { country: 'asc' }],
+    take: 10,
+  })
+}
+
+export const nearbyWorldCities: QueryResolvers['nearbyWorldCities'] = () => {
+  const { lat, lng } = geocoordinates(context.event as APIGatewayEvent)
+
+  logger.debug({ custom: { lat, lng } }, 'Geocoordinates')
+
+  const nearbyClause = [
+    { lat: { gte: lat - 0.1 } },
+    { lat: { lte: lat + 0.1 } },
+    { lng: { gte: lng - 0.1 } },
+    { lng: { lte: lng + 0.1 } },
+  ]
+
+  logger.debug({ custom: nearbyClause }, 'nearbyClause to find nearby cities')
+
+  return db.worldCity.findMany({
+    where: {
+      AND: nearbyClause,
+    },
+    orderBy: { population: 'asc' },
     take: 10,
   })
 }
