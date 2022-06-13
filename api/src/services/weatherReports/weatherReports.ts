@@ -14,7 +14,6 @@ export const weatherReport: QueryResolvers['weatherReport'] = ({ id }) => {
     where: { id },
   })
 }
-
 export const createWeatherReport: MutationResolvers['createWeatherReport'] = ({
   input,
 }) => {

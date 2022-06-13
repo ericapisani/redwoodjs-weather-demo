@@ -45,7 +45,7 @@ export const openWeather = async ({ lat, lon }) => {
     throw new Error('An api key for the Open Weather Maps API is required.')
   }
 
-  const url = `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.OPEN_WEATHER_API_KEY}` // ?
+  const url = `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=standard&appid=${process.env.OPEN_WEATHER_API_KEY}` // ?
 
   logger.debug(
     { custom: { lat, lon, url } },

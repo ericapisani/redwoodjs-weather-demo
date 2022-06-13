@@ -1,3 +1,5 @@
+import { formatISO, subMinutes } from 'date-fns'
+
 import { db } from 'src/lib/db'
 import { logger } from 'src/lib/logger'
 import {
@@ -5,7 +7,11 @@ import {
   geocoordinates,
 } from 'src/lib/geoUtils'
 
-import type { QueryResolvers } from 'types/graphql'
+import { worldCity } from 'src/services/worldCities'
+
+import { openWeather } from 'src/lib/openWeather'
+
+import type { CreateWeatherReportInput, QueryResolvers } from 'types/graphql'
 
 import type { APIGatewayEvent } from 'aws-lambda'
 
@@ -52,11 +58,13 @@ export const nearbyWorldCities: QueryResolvers['nearbyWorldCities'] = () => {
 
   logger.debug({ custom: { lat, lng } }, 'Geocoordinates')
 
+  const nearbyFactor = 1
+
   const nearbyClause = [
-    { lat: { gte: lat - 0.1 } },
-    { lat: { lte: lat + 0.1 } },
-    { lng: { gte: lng - 0.1 } },
-    { lng: { lte: lng + 0.1 } },
+    { lat: { gte: lat - nearbyFactor } },
+    { lat: { lte: lat + nearbyFactor } },
+    { lng: { gte: lng - nearbyFactor } },
+    { lng: { lte: lng + nearbyFactor } },
   ]
 
   logger.debug({ custom: nearbyClause }, 'nearbyClause to find nearby cities')
@@ -69,3 +77,62 @@ export const nearbyWorldCities: QueryResolvers['nearbyWorldCities'] = () => {
     take: 10,
   })
 }
+
+export const worldCityWeatherReport: QueryResolvers['worldCityWeatherReport'] =
+  async ({ worldCityId }) => {
+    logger.debug(
+      { custom: worldCityId },
+      'Searching for weather report for worldCityId'
+    )
+    const reports = await db.weatherReport.findMany({
+      where: { worldCityId, createdAt: { gt: subMinutes(new Date(), 2) } },
+      orderBy: { createdAt: 'desc' },
+      take: 1,
+    })
+
+    const report = reports[0]
+
+    if (report) {
+      logger.debug({ custom: report }, 'Report found for worldCityId')
+      return report
+    } else {
+      logger.debug({ custom: worldCityId }, 'Report NOT found for worldCityId')
+      const city = await worldCity({ id: worldCityId })
+      const weatherSearchCriteria = { lat: city.lat, lon: city.lng }
+      const weather = await openWeather(weatherSearchCriteria)
+      logger.debug({ custom: weather }, 'Weather fetched for worldCityId')
+
+      const input: CreateWeatherReportInput = {
+        worldCity: { connect: { id: worldCityId } },
+        headline: weather.weather[0].main,
+        description: weather.weather[0].description,
+        icon: weather.weather[0].icon,
+        tempFahrenheit: weather.main.temp_f,
+        feelsLikeFahrenheit: weather.main.feels_like_f,
+        tempMinFahrenheit: weather.main.temp_min_f,
+        tempMaxFahrenheit: weather.main.temp_max_f,
+        tempCelcius: weather.main.temp_c,
+        feelsLikeCelcius: weather.main.feels_like_c,
+        tempMinCelcius: weather.main.temp_min_c,
+        tempMaxCelcius: weather.main.temp_max_c,
+        temp: weather.main.temp,
+        feelsLike: weather.main.feels_like,
+        tempMin: weather.main.temp_min,
+        tempMax: weather.main.temp_max,
+        pressure: weather.main.pressure,
+        humidity: weather.main.humidity,
+        windSpeed: weather.wind.speed || 0,
+        windDegrees: weather.wind.deg || 0,
+        sunrise: formatISO(new Date(weather.sys.sunrise * 1000)),
+        sunset: formatISO(new Date(weather.sys.sunset * 1000)),
+      }
+
+      const newReport = await db.weatherReport.create({
+        data: input,
+      })
+
+      logger.debug({ custom: newReport }, 'Weather fetched for worldCityId')
+
+      return newReport
+    }
+  }

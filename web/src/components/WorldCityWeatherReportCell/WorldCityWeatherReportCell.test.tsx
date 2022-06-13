@@ -1,6 +1,6 @@
 import { render, screen } from '@redwoodjs/testing/web'
-import { Loading, Empty, Failure, Success } from './WeatherCell'
-import { standard } from './WeatherCell.mock'
+import { Loading, Empty, Failure, Success } from './WorldCityWeatherReportCell'
+import { standard } from './WorldCityWeatherReportCell.mock'
 
 // Generated boilerplate tests do not account for all circumstances
 // and can fail without adjustments, e.g. Float and DateTime types.
@@ -8,7 +8,7 @@ import { standard } from './WeatherCell.mock'
 //        https://redwoodjs.com/docs/testing#testing-cells
 // https://redwoodjs.com/docs/testing#jest-expect-type-considerations
 
-describe('WeatherCell', () => {
+describe('WorldCityWeatherReportCell', () => {
   it('renders Loading successfully', () => {
     expect(() => {
       render(<Loading />)
@@ -35,7 +35,9 @@ describe('WeatherCell', () => {
 
   it('renders Success successfully', async () => {
     expect(() => {
-      render(<Success weather={standard().weather} />)
+      render(
+        <Success worldCityWeatherReport={standard().worldCityWeatherReport} />
+      )
     }).not.toThrow()
   })
 })

@@ -2,10 +2,16 @@ import { logger } from 'src/lib/logger'
 
 import type { APIGatewayEvent } from 'aws-lambda'
 
+const DEFAULT_GEOCOORDINATES = { lat: 59.3294, lng: 18.0686 } // Stockholm, Sweden
+
 export const userGeolocation = (event: APIGatewayEvent) => {
-  const parsedHeaders = JSON.parse(event['headers']['x-user-geo'] || '') // ?
-  logger.debug({ custom: parsedHeaders }, 'Parsed User Geolocation headers')
-  return parsedHeaders
+  try {
+    const parsedHeaders = JSON.parse(event['headers']['x-user-geo'] || '') // ?
+    logger.debug({ custom: parsedHeaders }, 'Parsed User Geolocation headers')
+    return parsedHeaders
+  } catch {
+    return DEFAULT_GEOCOORDINATES
+  }
 }
 
 export const getWeatherSearchCriteriaFromEvent = (event: APIGatewayEvent) => {
