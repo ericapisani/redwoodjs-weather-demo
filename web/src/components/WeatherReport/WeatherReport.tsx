@@ -3,6 +3,10 @@ import { parseISO, formatISO9075 } from 'date-fns'
 const WeatherReport = ({ weatherReport }) => {
   return (
     <div className="border border-gray-300 rounded-md p-6 shadow-sm">
+      <p>{weatherReport.worldCity?.city}</p>
+      <p>{weatherReport.worldCity?.adminName}</p>
+      <p>{weatherReport.worldCity?.country}</p>
+      <hr className="my-4" />
       <p>{weatherReport.headline}</p>
       <p>{weatherReport.description}</p>
       <p>

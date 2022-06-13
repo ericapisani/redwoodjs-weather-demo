@@ -1,11 +1,15 @@
-// import type { WeatherReport } from 'types/graphql'
-// import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web'
-
 import WeatherReport from 'src/components/WeatherReport/WeatherReport'
 
+import type {
+  FindCurrentWeatherQuery,
+  FindCurrentWeatherQueryVariables,
+} from 'types/graphql'
+
+import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web'
+
 export const QUERY = gql`
-  query FindWorldCityWeatherReportQuery($worldCityId: String!) {
-    weatherReport: worldCityWeatherReport(worldCityId: $worldCityId) {
+  query GetCurrentWeather {
+    currentWeather {
       id
       createdAt
       updatedAt
@@ -45,13 +49,17 @@ export const Loading = () => <div>Loading...</div>
 
 export const Empty = () => <div>Empty</div>
 
-export const Failure = ({ error }) => (
-  // : CellFailureProps<QueryworldCityWeatherReportArgs>)
+export const Failure = ({
+  error,
+}: CellFailureProps<FindCurrentWeatherQueryVariables>) => (
   <div style={{ color: 'red' }}>Error: {error.message}</div>
 )
 
-export const Success = ({ weatherReport }) =>
-  //  CellSuccessProps<WeatherReport, QueryworldCityWeatherReportArgs>)
-  {
-    return <WeatherReport weatherReport={weatherReport} />
-  }
+export const Success = ({
+  currentWeather,
+}: CellSuccessProps<
+  FindCurrentWeatherQuery,
+  FindCurrentWeatherQueryVariables
+>) => {
+  return <WeatherReport weatherReport={currentWeather} />
+}

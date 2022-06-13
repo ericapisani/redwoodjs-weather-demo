@@ -2,7 +2,13 @@ import { logger } from 'src/lib/logger'
 
 import type { APIGatewayEvent } from 'aws-lambda'
 
-const DEFAULT_GEOCOORDINATES = { lat: 59.3294, lng: 18.0686 } // Stockholm, Sweden
+const DEFAULT_GEOLOCATION = {
+  lat: 59.3294,
+  lng: 18.0686,
+  city_ascii: 'Stockholm',
+  iso2: 'SE',
+  adminName: 'Stockholm',
+} // Stockholm, Sweden
 
 export const userGeolocation = (event: APIGatewayEvent) => {
   try {
@@ -10,7 +16,7 @@ export const userGeolocation = (event: APIGatewayEvent) => {
     logger.debug({ custom: parsedHeaders }, 'Parsed User Geolocation headers')
     return parsedHeaders
   } catch {
-    return DEFAULT_GEOCOORDINATES
+    return DEFAULT_GEOLOCATION
   }
 }
 
