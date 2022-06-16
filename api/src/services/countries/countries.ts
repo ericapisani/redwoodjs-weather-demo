@@ -1,5 +1,5 @@
 import { db } from 'src/lib/db'
-import { logger } from 'src/lib/logger'
+// import { logger } from 'src/lib/logger'
 
 export const countries = async () => {
   const results = await db.worldCity.findMany({
@@ -8,7 +8,7 @@ export const countries = async () => {
     distinct: ['country', 'iso2', 'iso3'],
   })
 
-  logger.debug({ custom: results }, 'Countries')
+  // logger.debug({ custom: results }, 'Countries')
 
   return results
 }

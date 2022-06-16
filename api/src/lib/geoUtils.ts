@@ -12,7 +12,7 @@ const DEFAULT_GEOLOCATION = {
 
 export const userGeolocation = (event: APIGatewayEvent) => {
   try {
-    const parsedHeaders = JSON.parse(event['headers']['x-user-geo'] || '') // ?
+    const parsedHeaders = JSON.parse(event['headers']['x-user-geo'] || '')
     logger.debug({ custom: parsedHeaders }, 'Parsed User Geolocation headers')
     return parsedHeaders
   } catch {

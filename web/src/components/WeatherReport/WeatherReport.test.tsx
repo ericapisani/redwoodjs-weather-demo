@@ -8,7 +8,7 @@ import WeatherReport from './WeatherReport'
 describe('WeatherReport', () => {
   it('renders successfully', () => {
     expect(() => {
-      render(<WeatherReport />)
+      render(<WeatherReport weatherReport={{ weatherReport: {} }} />)
     }).not.toThrow()
   })
 })

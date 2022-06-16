@@ -30,7 +30,7 @@ export const Success = ({ countries }: CellSuccessProps<CountriesQuery>) => {
             className="rounded-md border border-1 border-solid border-gray-300 p-4 flex justify-items-center hover:bg-gray-200"
           >
             <Link
-              className="text-gray-700 flex"
+              className="text-gray-700 flex text-md"
               to={routes.worldCities({ country: item.country })}
             >
               <GlobeIcon className="mr-2 h-6 w-6 text-gray-500 content-center" />

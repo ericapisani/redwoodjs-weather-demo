@@ -3,8 +3,8 @@ import { Link, routes } from '@redwoodjs/router'
 
 const WeatherReport = ({ weatherReport }) => {
   return (
-    <div className="border border-gray-300 rounded-md p-6 shadow-sm ">
-      <div className="bg-gray-300 p-4 rounded-md">
+    <div className="border border-gray-200 rounded-md p-6 shadow-sm space-y-4">
+      <div className="bg-gray-200 p-4 rounded-md">
         <p className="text-xl font-bold">{weatherReport.worldCity?.city}</p>
         <p>{weatherReport.worldCity?.adminName}</p>
         <p>
