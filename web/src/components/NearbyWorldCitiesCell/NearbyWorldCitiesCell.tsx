@@ -26,7 +26,7 @@ export const Success = ({
   nearbyWorldCities,
 }: CellSuccessProps<NearbyWorldCitiesQuery>) => {
   return (
-    <ul className="grid grid-cols-4 gap-4 sm:grid-cols-2">
+    <ul className="grid grid-cols-2 gap-4 sm:grid-cols-6">
       {nearbyWorldCities.map((item) => {
         return (
           <li key={item.id}>

@@ -134,6 +134,7 @@ export const worldCityWeatherReport: QueryResolvers['worldCityWeatherReport'] =
       { custom: worldCityId },
       'Searching for weather report for worldCityId'
     )
+
     const reports = await db.weatherReport.findMany({
       where: { worldCityId, createdAt: { gt: subMinutes(new Date(), 2) } },
       include: { worldCity: true },
@@ -163,7 +164,7 @@ export const worldCityWeatherReport: QueryResolvers['worldCityWeatherReport'] =
     }
   }
 
-export const currentWeather: QueryResolvers['currentWeather'] = async () => {
+export const currentCity = async () => {
   const weatherSearchCriteria = getUserWorldCitySearchCriteria(
     context?.event as APIGatewayEvent
   )
@@ -181,6 +182,14 @@ export const currentWeather: QueryResolvers['currentWeather'] = async () => {
   logger.debug({ custom: worldCities }, 'worldCities')
 
   const worldCity = worldCities[0] as unknown as WorldCity
+
+  logger.debug({ custom: worldCity }, 'worldCities')
+
+  return worldCity
+}
+
+export const currentWeather: QueryResolvers['currentWeather'] = async () => {
+  const worldCity = await currentCity()
 
   logger.debug({ custom: worldCity }, 'worldCities')
 

@@ -17,6 +17,7 @@ export const schema = gql`
     searchWorldCities(search: SearchWorldCityInput): [WorldCity!]! @skipAuth
     nearbyWorldCities: [WorldCity!]! @skipAuth
     worldCityWeatherReport(worldCityId: String!): WeatherReport! @skipAuth
+    currentCity: WorldCity! @skipAuth
     currentWeather: WeatherReport! @skipAuth
   }
 `
