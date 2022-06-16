@@ -1,5 +1,5 @@
 import { logger } from 'src/lib/logger'
-import { fetch } from 'cross-undici-fetch'
+import { fetch } from 'undici'
 
 const convertKtoC = (k) => {
   return Math.round(k - 273.15)
@@ -54,7 +54,7 @@ export const openWeather = async ({ lat, lon }) => {
 
   const res = await fetch(url)
 
-  const json = await res.json()
+  const json = (await res.json()) as Object
 
   if (json['cod'] === 401) {
     logger.error(json['message'])
@@ -62,7 +62,7 @@ export const openWeather = async ({ lat, lon }) => {
   }
 
   if (json['cod'] === 200) {
-    const main = convertTemps(json.main)
+    const main = convertTemps(json['main'])
     const enrichedWeather = { ...json, ...main }
 
     logger.debug(

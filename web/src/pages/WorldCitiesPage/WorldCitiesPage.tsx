@@ -9,6 +9,7 @@ const WorldCitiesPage = () => {
   const { country } = useParams()
   return (
     <>
+      <h2>Major Cities in {country}</h2>
       <SearchWorldCitiesCell search={{ country: country || 'Sweden' }} />
     </>
   )

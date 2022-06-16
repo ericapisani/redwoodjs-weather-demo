@@ -5,6 +5,7 @@ import {
   updateWorldCity,
   deleteWorldCity,
 } from './worldCities'
+
 import type { StandardScenario } from './worldCities.scenarios'
 
 // Generated boilerplate tests do not account for all circumstances
@@ -29,8 +30,7 @@ describe('worldCities', () => {
   scenario('creates a worldCity', async () => {
     const result = await createWorldCity({
       input: {
-        updatedAt: '2022-06-03T16:47:01Z',
-        simpleMapsId: 9044091n,
+        simpleMapsId: 9044091,
         city: 'String',
         cityAscii: 'String',
         lat: 2472306.844293075,
@@ -41,7 +41,6 @@ describe('worldCities', () => {
       },
     })
 
-    expect(result.updatedAt).toEqual('2022-06-03T16:47:01Z')
     expect(result.simpleMapsId).toEqual(9044091n)
     expect(result.city).toEqual('String')
     expect(result.cityAscii).toEqual('String')
@@ -56,10 +55,10 @@ describe('worldCities', () => {
     const original = await worldCity({ id: scenario.worldCity.one.id })
     const result = await updateWorldCity({
       id: original.id,
-      input: { updatedAt: '2022-06-04T16:47:01Z' },
+      input: { city: 'City' },
     })
 
-    expect(result.updatedAt).toEqual('2022-06-04T16:47:01Z')
+    expect(result.city).toEqual('City')
   })
 
   scenario('deletes a worldCity', async (scenario: StandardScenario) => {

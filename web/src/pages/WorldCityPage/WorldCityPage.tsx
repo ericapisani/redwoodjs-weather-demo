@@ -9,9 +9,11 @@ const WorldCityPage = ({ id }) => {
     <>
       <MetaTags title="WorldCity" description="WorldCity page" />
 
-      <h1 className="text-xl">City</h1>
-      <WorldCityCell id={id} />
+      <h1 className="text-xl">Weather Report</h1>
       <WorldCityWeatherReportCell worldCityId={id} />
+
+      <h1 className="text-xl">City Info</h1>
+      <WorldCityCell id={id} />
     </>
   )
 }

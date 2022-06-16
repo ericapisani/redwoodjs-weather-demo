@@ -2,6 +2,7 @@ import { formatISO, subMinutes } from 'date-fns'
 
 import { db } from 'src/lib/db'
 import { logger } from 'src/lib/logger'
+
 import {
   getUserWorldCitySearchCriteria,
   geocoordinates,
@@ -84,7 +85,7 @@ export const nearbyWorldCities: QueryResolvers['nearbyWorldCities'] = () => {
 
 const weatherToReport = ({ worldCityId, weather }) => {
   const input: CreateWeatherReportInput = {
-    worldCity: { connect: { id: worldCityId } },
+    worldCityId: worldCityId,
     headline: weather.weather[0].main,
     description: weather.weather[0].description,
     icon: weather.weather[0].icon,
@@ -113,6 +114,7 @@ const weatherToReport = ({ worldCityId, weather }) => {
 
 const getWeatherReport = async ({ worldCityId, weatherSearchCriteria }) => {
   const weather = await openWeather(weatherSearchCriteria)
+
   logger.debug({ custom: weather }, 'Weather fetched for worldCityId')
 
   const input = weatherToReport({ worldCityId, weather })
@@ -146,7 +148,14 @@ export const worldCityWeatherReport: QueryResolvers['worldCityWeatherReport'] =
       return report
     } else {
       logger.debug({ custom: worldCityId }, 'Report NOT found for worldCityId')
+
       const city = await worldCity({ id: worldCityId })
+
+      if (!city) {
+        logger.error({ custom: worldCityId }, 'World City not found.')
+
+        throw new Error('World City not found.')
+      }
 
       const weatherSearchCriteria = { lat: city.lat, lon: city.lng }
 

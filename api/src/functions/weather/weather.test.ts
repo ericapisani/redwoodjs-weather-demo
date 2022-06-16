@@ -8,22 +8,18 @@ import { handler } from './weather'
 describe('weather function', () => {
   it('Should respond with 200', async () => {
     const httpEvent = mockHttpEvent({
-      queryStringParameters: {
-        id: '42', // Add parameters here
+      headers: {
+        'x-user-geo': JSON.stringify({ lat: 1, lng: 2 }),
       },
     })
 
     const response = await handler(httpEvent)
-    const { data } = JSON.parse(response.body)
+    const { weather } = JSON.parse(response.body)
 
-    expect(response.statusCode).toBe(200)
-    expect(data).toBe('weather function')
+    expect(response.statusCode).toEqual(200)
+    expect(weather).toHaveProperty('weather')
+    expect(weather).toHaveProperty('coord')
+    expect(weather.coord.lat).toEqual(1)
+    expect(weather.coord.lon).toEqual(2)
   })
-
-  // You can also use scenarios to test your api functions
-  // See guide here: https://redwoodjs.com/docs/testing#scenarios
-  //
-  // scenario('Scenario test', async () => {
-  //
-  // })
 })

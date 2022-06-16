@@ -6,6 +6,8 @@ import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web'
 
 import WorldCity from 'src/components/WorldCity/WorldCity'
 
+import SearchWorldCitiesCell from 'src/components/SearchWorldCitiesCell'
+
 export const QUERY = gql`
   query FindWorldCityQuery($id: String!) {
     worldCity: worldCity(id: $id) {
@@ -30,5 +32,13 @@ export const Failure = ({
 export const Success = ({
   worldCity,
 }: CellSuccessProps<FindWorldCityQuery, FindWorldCityQueryVariables>) => {
-  return <WorldCity worldCity={worldCity} />
+  return (
+    <>
+      <WorldCity worldCity={worldCity} />
+      <h2>Major Cities in {worldCity.country}</h2>
+      <SearchWorldCitiesCell
+        search={{ country: worldCity.country || 'Sweden' }}
+      />
+    </>
+  )
 }
