@@ -1,5 +1,5 @@
 // import city-timezones NPM package using esm.sh CDN
-import cityTimezones from 'https://esm.sh/city-timezones@v1.2.0'
+import cityTimezones from 'https://esm.sh/city-timezones@1.2.0'
 import type { Context } from 'netlify:edge'
 
 const DEFAULT_LOCATION = {
