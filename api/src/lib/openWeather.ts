@@ -1,5 +1,6 @@
-import { logger } from 'src/lib/logger'
 import { fetch } from 'undici'
+
+import { logger } from 'src/lib/logger'
 
 const convertKtoC = (k) => {
   return Math.round(k - 273.15)

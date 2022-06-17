@@ -1,5 +1,4 @@
 import { LocationMarkerIcon } from '@heroicons/react/solid'
-
 import type {
   FindCurrentCityQuery,
   FindCurrentCityQueryVariables,

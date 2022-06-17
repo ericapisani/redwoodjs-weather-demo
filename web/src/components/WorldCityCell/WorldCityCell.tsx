@@ -2,11 +2,11 @@ import type {
   FindWorldCityQuery,
   FindWorldCityQueryVariables,
 } from 'types/graphql'
+
 import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web'
 
-import WorldCity from 'src/components/WorldCity/WorldCity'
-
 import SearchWorldCitiesCell from 'src/components/SearchWorldCitiesCell'
+import WorldCity from 'src/components/WorldCity/WorldCity'
 
 export const QUERY = gql`
   query FindWorldCityQuery($id: String!) {

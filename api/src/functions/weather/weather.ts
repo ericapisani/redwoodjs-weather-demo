@@ -1,8 +1,8 @@
+import type { APIGatewayEvent } from 'aws-lambda'
+
+import { getWeatherSearchCriteriaFromEvent } from 'src/lib/geoUtils'
 import { logger } from 'src/lib/logger'
 import { openWeather } from 'src/lib/openWeather'
-import { getWeatherSearchCriteriaFromEvent } from 'src/lib/geoUtils'
-
-import type { APIGatewayEvent } from 'aws-lambda'
 
 /**
  * The handler function is your code that processes http request events.

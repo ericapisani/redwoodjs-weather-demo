@@ -7,7 +7,6 @@ import {
   updateWeatherReport,
   deleteWeatherReport,
 } from './weatherReports'
-
 import type { StandardScenario } from './weatherReports.scenarios'
 
 // Generated boilerplate tests do not account for all circumstances

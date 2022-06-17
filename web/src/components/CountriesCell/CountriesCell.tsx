@@ -1,7 +1,7 @@
 import { GlobeIcon } from '@heroicons/react/outline'
-import { Link, routes } from '@redwoodjs/router'
-
 import type { CountriesQuery } from 'types/graphql'
+
+import { Link, routes } from '@redwoodjs/router'
 import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web'
 
 export const QUERY = gql`

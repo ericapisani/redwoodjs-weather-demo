@@ -1,6 +1,6 @@
-import { logger } from 'src/lib/logger'
-
 import type { APIGatewayEvent } from 'aws-lambda'
+
+import { logger } from 'src/lib/logger'
 
 const DEFAULT_GEOLOCATION = {
   lat: 59.3294,

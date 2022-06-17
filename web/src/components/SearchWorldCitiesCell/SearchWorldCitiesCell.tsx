@@ -2,6 +2,7 @@ import type {
   SearchWorldCitiesQuery,
   // SearchWorldCityInput,
 } from 'types/graphql'
+
 import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web'
 
 import WorldCity from 'src/components/WorldCity/WorldCity'

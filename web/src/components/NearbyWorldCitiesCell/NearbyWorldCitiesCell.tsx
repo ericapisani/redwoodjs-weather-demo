@@ -1,4 +1,5 @@
 import type { NearbyWorldCitiesQuery } from 'types/graphql'
+
 import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web'
 
 import WorldCity from 'src/components/WorldCity/WorldCity'

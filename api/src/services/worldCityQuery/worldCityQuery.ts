@@ -1,24 +1,19 @@
+import type { APIGatewayEvent } from 'aws-lambda'
 import { formatISO, subMinutes } from 'date-fns'
-
-import { db } from 'src/lib/db'
-import { logger } from 'src/lib/logger'
-
-import {
-  getUserWorldCitySearchCriteria,
-  geocoordinates,
-} from 'src/lib/geoUtils'
-
-import { worldCity } from 'src/services/worldCities'
-
-import { openWeather } from 'src/lib/openWeather'
-
 import type {
   CreateWeatherReportInput,
   QueryResolvers,
   WorldCity,
 } from 'types/graphql'
 
-import type { APIGatewayEvent } from 'aws-lambda'
+import { db } from 'src/lib/db'
+import {
+  getUserWorldCitySearchCriteria,
+  geocoordinates,
+} from 'src/lib/geoUtils'
+import { logger } from 'src/lib/logger'
+import { openWeather } from 'src/lib/openWeather'
+import { worldCity } from 'src/services/worldCities'
 
 const getDefaultSearchCriteria = (search) => {
   let criteria = {}

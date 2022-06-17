@@ -1,7 +1,7 @@
 import { MetaTags } from '@redwoodjs/web'
 
-import NearbyWorldCitiesCell from 'src/components/NearbyWorldCitiesCell'
 import CurrentWeatherCell from 'src/components/CurrentWeatherCell'
+import NearbyWorldCitiesCell from 'src/components/NearbyWorldCitiesCell'
 const HomePage = () => {
   return (
     <>

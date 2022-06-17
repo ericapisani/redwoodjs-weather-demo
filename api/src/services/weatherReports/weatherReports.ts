@@ -1,9 +1,10 @@
-import { db } from 'src/lib/db'
 import type {
   QueryResolvers,
   MutationResolvers,
   WeatherReportResolvers,
 } from 'types/graphql'
+
+import { db } from 'src/lib/db'
 
 export const weatherReports: QueryResolvers['weatherReports'] = () => {
   return db.weatherReport.findMany()

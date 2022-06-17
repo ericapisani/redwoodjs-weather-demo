@@ -1,11 +1,11 @@
-import WeatherReport from 'src/components/WeatherReport/WeatherReport'
-
 import type {
   FindCurrentWeatherQuery,
   FindCurrentWeatherQueryVariables,
 } from 'types/graphql'
 
 import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web'
+
+import WeatherReport from 'src/components/WeatherReport/WeatherReport'
 
 export const QUERY = gql`
   query GetCurrentWeather {

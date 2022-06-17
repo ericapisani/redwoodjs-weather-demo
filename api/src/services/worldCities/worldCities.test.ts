@@ -5,7 +5,6 @@ import {
   updateWorldCity,
   deleteWorldCity,
 } from './worldCities'
-
 import type { StandardScenario } from './worldCities.scenarios'
 
 // Generated boilerplate tests do not account for all circumstances
