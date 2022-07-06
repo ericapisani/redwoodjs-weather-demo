@@ -1,3 +1,5 @@
+import { fetch } from 'undici'
+
 import { logger } from 'src/lib/logger'
 
 const convertKtoC = (k) => {

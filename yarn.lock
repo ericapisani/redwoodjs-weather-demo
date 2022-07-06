@@ -7071,6 +7071,7 @@ __metadata:
     "@redwoodjs/api": ^2.0.0
     "@redwoodjs/graphql-server": ^2.0.0
     date-fns: ^2.28.0
+    undici: 5.4.0
   languageName: unknown
   linkType: soft
 
@@ -22965,6 +22966,13 @@ __metadata:
   version: 5.0.0
   resolution: "undici@npm:5.0.0"
   checksum: 381cff91b1c937edab4672e16d0aeeda6ba432aba7e958a9e5bc8bc1b8c0a5527919a82f4ae73d7bf7ee43e6b2ac28292c2fdefaaf6e69d4f7b3a1223cf5fd15
+  languageName: node
+  linkType: hard
+
+"undici@npm:5.4.0":
+  version: 5.4.0
+  resolution: "undici@npm:5.4.0"
+  checksum: e3641956642e31408be52125f4292cdc0e09f3a5c098302f82ac3fff70abfa2da553b025774b5aee65cef980e0c60672123afbad681112bfaa549cc366ebee3b
   languageName: node
   linkType: hard
 
