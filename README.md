@@ -50,6 +50,17 @@ DATABASE_URL=postgresql://postgres:postgres@localhost:5432/redwoodjs-weather-dem
 TEST_DATABASE_URL=postgresql://postgres:postgres@localhost:5432/redwoodjs-weather-demo-test
 ```
 
+#### Setting up a Database on Railway
+
+
+If you'd rather not worry about setting up a Postgres database on your computer, you can easily provision a Postgres database on [Railway for free](https://railway.app/)(for 24 hours).
+
+After provisioning a database on Railway, copy the 'database connection URL' that Railway provides. You can then use this as your `DATABASE_URL` value in your local environment.
+
+To apply the Prisma schema to the provisioned databse, run `yarn rw prisma db push`.
+
+To run the seed script that populates the provisioned database, run `yarn rw prisma db seed`.
+
 ## GraphQL Queries
 
 While RedwoodJS ships with a developer GraphQL Playground, when running the app under `netlfiy cli`, the playground doesn't launch properly.
