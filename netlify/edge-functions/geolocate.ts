@@ -32,6 +32,7 @@ const getLocalDate = (timeZone: string) => {
 }
 
 export default async (request: Request, context: Context) => {
+  console.log('CONTEXT IN EDGE', context)
   const cityTimeZone = getCityTimezone(context.geo)
   cityTimeZone['localDateTime'] = getLocalDate(cityTimeZone.timeZone)
 
