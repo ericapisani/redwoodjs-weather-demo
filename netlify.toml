@@ -25,6 +25,7 @@ path = "/.redwood/functions/graphql"
 function = "geolocate"
 
 [[edge_functions]]
-path = "/.redwood/functions/weather"
+# path = ".redwood/functions/weather"
+path = "/"
 function = "geolocate"
 
