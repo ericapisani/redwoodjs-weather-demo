@@ -11,7 +11,6 @@ const DEFAULT_GEOLOCATION = {
 } // Stockholm, Sweden
 
 export const userGeolocation = (event: APIGatewayEvent) => {
-  console.log('RECEIVED HEADERS', event['headers'])
   try {
     const parsedHeaders = JSON.parse(event['headers']['x-user-geo'] || '')
     logger.debug({ custom: parsedHeaders }, 'Parsed User Geolocation headers')

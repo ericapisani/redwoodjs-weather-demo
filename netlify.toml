@@ -21,7 +21,7 @@ functions = "api/dist/functions"
   status = 200
 
 [[edge_functions]]
-path = "/.redwood/functions/graphql"
+path = "/.netlify/functions/graphql"
 function = "geolocate"
 
 [[edge_functions]]
