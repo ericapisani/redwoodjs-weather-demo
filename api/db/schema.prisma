@@ -8,6 +8,35 @@ generator client {
   binaryTargets = "native"
 }
 
+model WeatherReport {
+  id                  String    @id @default(uuid())
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
+  worldCity           WorldCity @relation(fields: [worldCityId], references: [id])
+  worldCityId         String
+  headline            String
+  description         String
+  icon                String
+  tempFahrenheit      Int
+  feelsLikeFahrenheit Int
+  tempMinFahrenheit   Int
+  tempMaxFahrenheit   Int
+  tempCelcius         Int
+  feelsLikeCelcius    Int
+  tempMinCelcius      Int
+  tempMaxCelcius      Int
+  temp                Float
+  feelsLike           Float
+  tempMin             Float
+  tempMax             Float
+  pressure            Int
+  humidity            Int
+  windSpeed           Float
+  windDegrees         Int
+  sunrise             DateTime
+  sunset              DateTime
+}
+
 model WorldCity {
   id           String   @id @default(uuid())
   createdAt    DateTime @default(now())
@@ -25,6 +54,7 @@ model WorldCity {
   population   Int?     @default(0)
 
 
+  WeatherReport WeatherReport[]
   @@unique([simpleMapsId, city])
   @@unique([simpleMapsId, city, cityAscii, country])
   @@index([city])
