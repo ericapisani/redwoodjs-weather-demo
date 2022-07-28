@@ -18,7 +18,7 @@ This can be done through the [RedwoodJS framework](https://redwoodjs.com/docs/en
 
 ### Database setup
 
-It's recommended to use [`Postgres`](https://www.postgresql.org/) for your database so the schema can use `BigInt` and `Float` nicely.
+It's recommended to use [Postgres](https://www.postgresql.org/) for your database so the schema can use `BigInt` and `Float` nicely.
 
 Also, the seed script uses Prisma's [`createMany()`](https://www.prisma.io/docs/reference/api-reference/prisma-client-reference#createmany) to bulk load records in batches which is significantly faster that loading data row by row -- which is important because we have ~43,000 world cities in the dataset.
 
