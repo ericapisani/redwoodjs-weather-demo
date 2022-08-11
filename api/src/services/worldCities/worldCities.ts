@@ -1,14 +1,6 @@
-import { db } from 'src/lib/db'
 import type { QueryResolvers, MutationResolvers } from 'types/graphql'
 
-export const searchWorldCities: QueryResolvers['searchWorldCities'] = ({
-  search,
-}) => {
-  return db.worldCity.findMany({
-    where: { ...search },
-    orderBy: [{ city: 'asc' }, { country: 'asc' }],
-  })
-}
+import { db } from 'src/lib/db'
 
 export const worldCities: QueryResolvers['worldCities'] = () => {
   return db.worldCity.findMany({
