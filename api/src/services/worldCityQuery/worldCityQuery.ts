@@ -15,6 +15,8 @@ import { logger } from 'src/lib/logger'
 import { openWeather } from 'src/lib/openWeather'
 import { worldCity } from 'src/services/worldCities'
 
+import { RedwoodError } from '@redwoodjs/api'
+
 const getDefaultSearchCriteria = (search) => {
   let criteria = {}
 
@@ -174,11 +176,15 @@ export const currentCity = async () => {
     },
   })
 
-  logger.debug({ custom: worldCities }, 'worldCities')
+  logger.debug({ custom: worldCities }, 'worldCities in currentCity')
 
   const worldCity = worldCities[0] as unknown as WorldCity
 
-  logger.debug({ custom: worldCity }, 'worldCities')
+  logger.debug({ custom: worldCity }, 'worldCities, first')
+
+  if (!worldCity) {
+    logger.warn({ custom: worldCity }, 'World City not found.')
+  }
 
   return worldCity
 }
@@ -186,7 +192,12 @@ export const currentCity = async () => {
 export const currentWeather: QueryResolvers['currentWeather'] = async () => {
   const worldCity = await currentCity()
 
-  logger.debug({ custom: worldCity }, 'worldCities')
+  logger.debug({ custom: worldCity }, 'worldCities in currentWeather')
+
+  if (!worldCity) {
+    logger.error({ custom: worldCity }, 'World City not found.')
+    throw new RedwoodError('World City not found.')
+  }
 
   return await worldCityWeatherReport({ worldCityId: worldCity.id })
 }
