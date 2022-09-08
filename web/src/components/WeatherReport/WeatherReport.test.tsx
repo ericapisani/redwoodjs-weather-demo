@@ -1,4 +1,5 @@
 import { render } from '@redwoodjs/testing/web'
+import { standard } from '../WorldCityWeatherReportCell/WorldCityWeatherReportCell.mock'
 
 import WeatherReport from './WeatherReport'
 
@@ -8,7 +9,7 @@ import WeatherReport from './WeatherReport'
 describe('WeatherReport', () => {
   it('renders successfully', () => {
     expect(() => {
-      render(<WeatherReport weatherReport={{ weatherReport: {} }} />)
+      render(<WeatherReport weatherReport={standard().weatherReport} />)
     }).not.toThrow()
   })
 })
