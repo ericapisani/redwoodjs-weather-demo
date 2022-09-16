@@ -9,15 +9,6 @@ import { logger } from 'src/lib/logger'
 
 export const handler = createGraphQLHandler({
   loggerConfig: { logger, options: { operationName: true, query: true } },
-  cors: {
-    origin: [
-      process.env.DEPLOY_URL,
-      'http://localhost:8910',
-      'https://www.example.com',
-      process.env.DEPLOY_PRIME_URL,
-      process.env.URL,
-    ],
-  },
   directives,
   sdls,
   services,
