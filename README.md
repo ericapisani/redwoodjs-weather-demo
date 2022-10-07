@@ -4,11 +4,15 @@ This is a demo project demonstrating the use of the [RedwoodJS framework](https:
 
 This project uses an Edge Function to determine your [geolocation](https://docs.netlify.com/netlify-labs/experimental-features/edge-functions/api/#netlify-specific-context-object), and then fetches your local weather forecast using the OpenWeather API using a standard [serverless function](https://redwoodjs.com/docs/serverless-functions).
 
+## Demo
+
+You may demo this app at [https://github.com/ericapisani/redwoodjs-weather-demo](https://github.com/ericapisani/redwoodjs-weather-demo).
+
 ## Requirements
 
-* A Netlify account. Sign up for free [here](https://app.netlify.com/signup).
-* An OpenWeather API key. Get one [here](https://openweathermap.org/api).
-* A Postgres database. You can either set one up locally, or use [Railway](https://railway.app/) to provision a temporary one.
+- A Netlify account. Sign up for free [here](https://app.netlify.com/signup).
+- An OpenWeather API key. Get one [here](https://openweathermap.org/api).
+- A Postgres database. You can either set one up locally, or use [Railway](https://railway.app/) to provision a temporary one.
 
 ### Setting the OpenWeather API key
 
@@ -47,18 +51,16 @@ TEST_DATABASE_URL=postgresql://postgres:postgres@localhost:5432/redwoodjs-weathe
 
 #### Setting up a database on Railway
 
-
 If you'd rather not worry about setting up a Postgres database on your computer, you can easily provision a Postgres database on [Railway for free](https://railway.app/)(for 24 hours).
 
 After provisioning a database on Railway, copy the 'database connection URL' that Railway provides. You can then use this as your `DATABASE_URL` value in your local environment.
-
 
 #### Populating the data in the database after set up
 
 Regardless of where the database is set up, you'll need to also do the following:
 
-* Apply the Prisma schema to the provisioned database - run `yarn rw prisma db push`.
-* Run the seed script to populate the database with the city data - run `yarn rw prisma db seed`.
+- Apply the Prisma schema to the provisioned database - run `yarn rw prisma db push`.
+- Run the seed script to populate the database with the city data - run `yarn rw prisma db seed`.
 
 ## Dataset
 
@@ -68,7 +70,7 @@ This project uses the [World Cities Dataset](https://simplemaps.com/data/world-c
 
 ## Schema
 
-* `WorldCity`
+- `WorldCity`
 
 ```ts
  type WorldCity {
@@ -110,7 +112,6 @@ query AllCities {
 }
 ```
 
-
 ### Search world cities
 
 ```ts
@@ -125,7 +126,6 @@ query CityByName {
   }
 }
 ```
-
 
 ### City By Id
 
@@ -158,7 +158,7 @@ Adding this to the `.toml` file means that when a request is made to the `path`,
 
 1. Place Edge Function in `netlify/edge-functions`
 2. In `netlify.toml`, set the `path` value to your serverless function's path.
-  Be sure to include the deploy path where functions live, like `/.redwood/functions/` or `/.netlify/functions/`.
+   Be sure to include the deploy path where functions live, like `/.redwood/functions/` or `/.netlify/functions/`.
 3. Set the `function` value to the name of your Edge Function.
 
 ```
